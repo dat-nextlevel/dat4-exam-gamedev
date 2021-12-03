@@ -10,11 +10,15 @@ public class Player : MonoBehaviour
     private Vector3 _direction;
     private CharacterController m_characterController;
     private Plane m_plane;
+    private Animator m_animator;
     [SerializeField] private Transform m_modelTransform;
+
+    private bool isMoving = false;
 
     void OnEnable()
     {
         m_Controls.Enable();
+        m_animator = GetComponent<Animator>();
     }
 
     void OnDisable()
@@ -37,6 +41,24 @@ public class Player : MonoBehaviour
         var v = m_Controls.Player.Vertical.ReadValue<float>();
         var mousePos = Mouse.current.position.ReadValue();
 
+        if (h != 0f || v != 0f)
+        {
+            if (!isMoving)
+            {
+                isMoving = true;
+                m_animator.SetBool("isMoving", true);
+            }
+        }
+        else
+        {
+            if (isMoving)
+            {
+
+                isMoving = false;
+                m_animator.SetBool("isMoving", false);
+            }
+        }
+
         m_characterController.Move(new Vector3(h, 0.0f, v) * moveSpeed * Time.deltaTime);
 
         RotateTowardsMouse(mousePos);
@@ -53,7 +75,7 @@ public class Player : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             targetRotation.x = 0f;
             targetRotation.z = 0f;
-
+            
             //The magic number "7f" is turnspeed!
             m_modelTransform.rotation = Quaternion.Slerp(m_modelTransform.rotation, targetRotation, 7f * Time.deltaTime);
         }

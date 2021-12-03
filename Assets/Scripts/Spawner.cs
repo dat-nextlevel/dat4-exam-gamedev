@@ -44,7 +44,8 @@ public class Spawner : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            Instantiate(spawnObject, hit.point, Quaternion.identity);
+            var obj = Instantiate(spawnObject, hit.point, Quaternion.identity);
+            obj.transform.Rotate(0, 180, 0);
         }
     }
 }
