@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95ab5e0d1feabb4784768420d68c102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 1437171083382920380, guid: ba41d910ce14dae4ab98f6d0f19ea0fd, type: 3}
+  indicator: {fileID: 206308946226205689, guid: 90a3fb1bcfa3e8b4ba5071a7e4c9fdb8, type: 3}
   cooldown: 3
   spawnObject: {fileID: 2578001253843199089, guid: 3d55d269a0a0ffc44886c9a59e46a30c, type: 3}
 --- !u!1001 &1232679713

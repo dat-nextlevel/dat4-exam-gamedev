@@ -36,8 +36,9 @@ public class AbilityManager : MonoBehaviour
     private void AbilityOne()
     {
         currentAbility = abilityOne;
-        currentAbility.CreateIndicator(5);
+        currentAbility.CreateIndicator(3);
     }
+
 
     private void FireCurrentAbility()
     {
