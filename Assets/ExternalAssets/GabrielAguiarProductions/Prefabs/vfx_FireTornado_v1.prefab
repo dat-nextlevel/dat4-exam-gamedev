@@ -40,7 +40,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255130674896854887}
   serializedVersion: 7
-  lengthInSec: 5
+  lengthInSec: 8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -4871,9 +4871,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2578001253843199090}
+  - component: {fileID: 6813379391825625439}
+  - component: {fileID: -7398050852317890769}
   m_Layer: 0
   m_Name: vfx_FireTornado_v1
-  m_TagString: Untagged
+  m_TagString: AbilityArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4895,6 +4897,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6813379391825625439
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578001253843199089}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 3.5
+  m_Height: 13
+  m_Direction: 1
+  m_Center: {x: 0, y: 4, z: 0}
+--- !u!114 &-7398050852317890769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578001253843199089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95ab5e0d1feabb4784768420d68c102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indicator: {fileID: 0}
+  cooldown: 3
+  duration: 8
+  spawnObject: {fileID: 0}
 --- !u!1 &2578001254180627476
 GameObject:
   m_ObjectHideFlags: 0
@@ -4946,6 +4978,9 @@ VisualEffect:
       m_Array:
       - m_Value: 1.15
         m_Name: Delay
+        m_Overridden: 1
+      - m_Value: 8
+        m_Name: Duration
         m_Overridden: 1
     m_Vector2f:
       m_Array: []

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,10 +9,13 @@ public abstract class Ability : MonoBehaviour
 {
     public GameObject indicator;
     public float cooldown = 3;
+    public float duration = 0;
 
     private float lastUsed;
     protected GameObject _indicator;
     protected Camera cam;
+
+    private Dictionary<GameObject, float> spawnedEntities = new Dictionary<GameObject, float>();
 
     private void Awake()
     {
@@ -19,28 +23,10 @@ public abstract class Ability : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        if (_indicator)
-        {
-            if (CanFire())
-            {
-                _indicator.GetComponent<MeshRenderer>().sharedMaterial.SetColor("BaseColor", new Color(0.5f, 1, 0));
-            }
-            else
-            {
-                _indicator.GetComponent<MeshRenderer>().sharedMaterial.SetColor("BaseColor", new Color(1, 0, 0.18f));
-
-            }
-            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                var point = hit.point;
-                point.y = 0.5f;
-                _indicator.transform.position = point;
-            }
-        }
+        handleIndicator();
+        handleShouldDespawn();
     }
 
     private bool CanFire()
@@ -57,8 +43,10 @@ public abstract class Ability : MonoBehaviour
     {
         if (CanFire())
         {
-           Behavior();
+           var obj = Behavior();
            lastUsed = Time.time;
+
+           spawnedEntities.Add(obj, Time.time);
            return true;
         }
         
@@ -95,6 +83,53 @@ public abstract class Ability : MonoBehaviour
         }
 
     }
+
+    private void handleIndicator()
+    {
+        if (_indicator)
+        {
+            if (CanFire())
+            {
+                _indicator.GetComponent<MeshRenderer>().sharedMaterial.SetColor("BaseColor", new Color(0.5f, 1, 0));
+            }
+            else
+            {
+                _indicator.GetComponent<MeshRenderer>().sharedMaterial.SetColor("BaseColor", new Color(1, 0, 0.18f));
+
+            }
+            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                var point = hit.point;
+                point.y = 0.5f;
+                _indicator.transform.position = point;
+            }
+        }
+    }
+
+    private void handleShouldDespawn()
+    {
+        if (duration > 0)
+        {
+            for (int i = spawnedEntities.Count - 1; i >= 0; i--)
+            {
+                var entity = spawnedEntities.ElementAt(i);
+                if (duration + entity.Value <= Time.time)
+                {
+                    var ability = entity.Key.GetComponent<Ability>();
+                    ability.NoCollision(); // Cancel a collision if player was inside.
+
+                    spawnedEntities.Remove(entity.Key);
+                    Destroy(entity.Key);
+                }
+            }
+
+            
+        }   
+    }
     
-    public abstract void Behavior();
+    public abstract GameObject Behavior();
+    public abstract void Collision();
+    public abstract void NoCollision();
 }
