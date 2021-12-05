@@ -30,8 +30,8 @@ public class Player : MonoBehaviour
     void Awake()
     {
         m_Controls = new Controls();
-        m_characterController = GetComponent<CharacterController>();
-        m_animator = GetComponent<Animator>();
+        m_characterController = GetComponentInChildren<CharacterController>();
+        m_animator = GetComponentInChildren<Animator>();
 
         m_plane = new Plane(Vector3.up, transform.position);
     }

@@ -5,10 +5,9 @@ using UnityEngine;
 public class AbilityManager : MonoBehaviour
 {
 
+    private Ability abilityOne;
     private Controls m_controls;
     private Ability currentAbility;
-    
-    private Ability abilityOne;
 
     private void OnEnable()
     {
@@ -23,12 +22,13 @@ public class AbilityManager : MonoBehaviour
     private void Awake()
     {
         m_controls = new Controls();
-
-        abilityOne = GetComponent<Tornado>();
     }
 
     void Start()
     {
+        // Little scuffed but will do.
+        abilityOne = GetComponent<Tornado>();
+        
         m_controls.Player.LeftMouse.performed += ctx => FireCurrentAbility();
         m_controls.Player.AbilityOne.performed += ctx => AbilityOne();
     }

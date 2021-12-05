@@ -16,7 +16,8 @@ public abstract class Ability : MonoBehaviour
     protected Camera cam;
 
     private Dictionary<GameObject, float> spawnedEntities = new Dictionary<GameObject, float>();
-
+    private Dictionary<GameObject, float> collidingEntities = new Dictionary<GameObject, float>();
+    
     private void Awake()
     {
         cam = Camera.main;
@@ -27,11 +28,16 @@ public abstract class Ability : MonoBehaviour
     {
         handleIndicator();
         handleShouldDespawn();
+        handleCollidingBehavior();
     }
 
     private bool CanFire()
     {
-        if (lastUsed + cooldown <= Time.time)
+        if (lastUsed == 0)
+        {
+            return true;
+        }
+        if(lastUsed + cooldown <= Time.time)
         {
             return true;
         }
@@ -43,7 +49,7 @@ public abstract class Ability : MonoBehaviour
     {
         if (CanFire())
         {
-           var obj = Behavior();
+           var obj = SpawnBehavior();
            lastUsed = Time.time;
 
            spawnedEntities.Add(obj, Time.time);
@@ -118,7 +124,7 @@ public abstract class Ability : MonoBehaviour
                 if (duration + entity.Value <= Time.time)
                 {
                     var ability = entity.Key.GetComponent<Ability>();
-                    ability.NoCollision(); // Cancel a collision if player was inside.
+                    ability.NoCollision(entity.Key); // Cancel a collision if player was inside.
 
                     spawnedEntities.Remove(entity.Key);
                     Destroy(entity.Key);
@@ -128,8 +134,35 @@ public abstract class Ability : MonoBehaviour
             
         }   
     }
+
+    private void handleCollidingBehavior()
+    {
+        for (int i = collidingEntities.Count - 1; i >= 0; i--)
+        {
+            var entity = collidingEntities.ElementAt(i);
+            var didBehavior = CollidingBehavior(entity);
+            if (didBehavior)
+            {
+                collidingEntities[entity.Key] = Time.time;
+            }
+        }
+        
+    }
     
-    public abstract GameObject Behavior();
-    public abstract void Collision();
-    public abstract void NoCollision();
+    public void Collision(GameObject entity)
+    {
+        collidingEntities.Add(entity, 0f);
+    }
+    
+    public void NoCollision(GameObject entity)
+    {
+        collidingEntities.Remove(entity);
+    }
+    
+    
+    public abstract GameObject SpawnBehavior();
+    public abstract bool CollidingBehavior(KeyValuePair<GameObject, float> entity);
+    
+
+
 }

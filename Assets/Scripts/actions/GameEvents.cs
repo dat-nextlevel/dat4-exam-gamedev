@@ -12,13 +12,13 @@ public class GameEvents : MonoBehaviour
         current = this;
     }
 
-    public event Action<float> onDamageDone;
+    public event Action<GameObject, float> onDamageDone;
 
-    public void DamageDone(float damage)
+    public void DamageDone(GameObject entity, float damage)
     {
         if (onDamageDone != null)
         {
-            onDamageDone(damage);
+            onDamageDone(entity, damage);
         }
     }
 }

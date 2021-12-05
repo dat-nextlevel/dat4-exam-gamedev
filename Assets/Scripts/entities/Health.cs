@@ -15,8 +15,11 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void OnDamageDone(float damage)
+    private void OnDamageDone(GameObject entity, float damage)
     {
-        Debug.Log("Should do damage: " + damage);
+        if (entity == gameObject)
+        {
+            Debug.Log("Should do damage: " + damage);
+        }
     }
 }

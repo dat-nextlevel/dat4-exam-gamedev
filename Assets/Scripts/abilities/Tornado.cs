@@ -8,12 +8,12 @@ using UnityEngine.PlayerLoop;
 public class Tornado : Ability
 {
     public GameObject spawnObject;
+    private bool isColliding;
 
-    private float lastDamageTick;
-    private bool isColliding = false;
+    public float tickDamageCooldown = 3f;
 
     override 
-    public GameObject Behavior()
+    public GameObject SpawnBehavior()
     {
         Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         RaycastHit hit;
@@ -28,27 +28,15 @@ public class Tornado : Ability
         return null;
     }
 
-    public void Update()
+    public override bool CollidingBehavior(KeyValuePair<GameObject, float> entity)
     {
-        base.Update();
-
-        if (isColliding && lastDamageTick + 2 <= Time.time)
+        if (entity.Value == 0 || tickDamageCooldown + entity.Value <= Time.time)
         {
-            GameEvents.current.DamageDone(5);
-            lastDamageTick = Time.time;
+            GameEvents.current.DamageDone(entity.Key, 7);
+            return true;
         }
-    }
 
-    override 
-    public void Collision()
-    {
-        isColliding = true;
-    }
+        return false;
 
-    override 
-    public void NoCollision()
-    {
-        isColliding = false;
     }
-    
 }

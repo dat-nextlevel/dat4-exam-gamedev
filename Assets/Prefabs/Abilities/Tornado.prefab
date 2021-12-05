@@ -4872,9 +4872,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2578001253843199090}
   - component: {fileID: 6813379391825625439}
-  - component: {fileID: -7398050852317890769}
+  - component: {fileID: -4668933227603227555}
+  - component: {fileID: -5518170551201372741}
   m_Layer: 0
-  m_Name: vfx_FireTornado_v1
+  m_Name: Tornado
   m_TagString: AbilityArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4911,22 +4912,35 @@ CapsuleCollider:
   m_Height: 13
   m_Direction: 1
   m_Center: {x: 0, y: 4, z: 0}
---- !u!114 &-7398050852317890769
+--- !u!114 &-4668933227603227555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2578001253843199089}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266f7701774d1ce4cadaf9d0b305e44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5518170551201372741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578001253843199089}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f95ab5e0d1feabb4784768420d68c102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 0}
   cooldown: 3
-  duration: 8
+  duration: 0
   spawnObject: {fileID: 0}
+  tickDamageCooldown: 2
 --- !u!1 &2578001254180627476
 GameObject:
   m_ObjectHideFlags: 0
