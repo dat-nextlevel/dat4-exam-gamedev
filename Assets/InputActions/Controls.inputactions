@@ -11,7 +11,8 @@
                     "id": "66c91e19-5f53-4dc9-be4f-35be2a746d1e",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Vertical",
@@ -19,7 +20,8 @@
                     "id": "ce8e8bf1-1c10-43ea-af09-342aa4582aaa",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LeftMouse",
@@ -27,7 +29,8 @@
                     "id": "e642db17-09db-426b-ab88-1906d2fd1875",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "AbilityOne",
@@ -35,7 +38,8 @@
                     "id": "1a5cfd5c-9dda-49e6-9f3b-2fc903553fbc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

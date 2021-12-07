@@ -64,8 +64,4 @@ public class Player : MonoBehaviour
     }
     */
 
-    private void OnAbilityOne()
-    {
-        Debug.Log("Q was pressed at " + Pointer.current.position.ReadValue());
-    }
 }

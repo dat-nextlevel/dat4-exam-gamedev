@@ -614,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnObject: {fileID: 2578001253843199089, guid: 3d55d269a0a0ffc44886c9a59e46a30c, type: 3}
+  prefab: {fileID: 2226874163953968662, guid: 836039a3a19f6ef4e8ed4be6438ff27d, type: 3}
 --- !u!4 &530385105
 Transform:
   m_ObjectHideFlags: 0
