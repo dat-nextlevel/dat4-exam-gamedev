@@ -28,7 +28,7 @@ public class AbilityManager : MonoBehaviour
     {
         // Little scuffed but will do.
         abilityOne = GetComponent<Tornado>();
-        
+
         m_controls.Player.LeftMouse.performed += ctx => FireCurrentAbility();
         m_controls.Player.AbilityOne.performed += ctx => AbilityOne();
     }
