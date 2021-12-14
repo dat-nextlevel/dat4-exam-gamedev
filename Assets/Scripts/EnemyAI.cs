@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -32,13 +34,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Start(){
 
-        GameEvents.current.onDamageDone += OnDamageDone;
     }
     
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        GameEvents.current.onDamageDone += OnDamageDone;
+
     }
 
     private void Update()
@@ -147,7 +150,18 @@ public class EnemyAI : MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        /*var activeAbilities = GameObject.FindGameObjectsWithTag("AbilityArea");
+        for (var x = 0; x < activeAbilities.Length; x++)
+        {
+            activeAbilities[x].GetComponent<Ability>().NoCollision(gameObject);
+        }
+        */
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.current.onDamageDone -= OnDamageDone;
     }
 
     private void OnDrawGizmosSelected()

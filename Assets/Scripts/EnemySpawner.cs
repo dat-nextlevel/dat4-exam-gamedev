@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 
@@ -12,25 +13,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject scifiEnemy;
     [SerializeField] private GameObject graveyardEnemy;
     private GameObject _playerPosition;
-    private readonly int _spawnTimer = 15;
+    [FormerlySerializedAs("_spawnTimer")] public int spawnTimer = 10;
     private readonly List<Transform> _allZones = new List<Transform>();
 
     // Start is called before the first frame update
     void Start()
     {
+        InvokeRepeating("SpawnEnemy", 5, spawnTimer);
         ZonePoints();
-        StartCoroutine(Waiter());
     }
 
     private void Update()
     {
         _playerPosition = GameObject.Find("Player");      
-    }
-
-    IEnumerator Waiter()
-    {
-        yield return new WaitForSeconds(_spawnTimer);
-        SpawnEnemy();
     }
 
     private void SpawnEnemy()
@@ -45,25 +40,22 @@ public class EnemySpawner : MonoBehaviour
         Vector3 randomCoordinate = origin + randomRange;
         if (spawnZone.transform.parent.gameObject.name == "DesertSpawn")
         {
-            Instantiate(desertEnemy, randomCoordinate, Quaternion.identity);
+            GameObject tmpObject = Instantiate(desertEnemy, randomCoordinate, Quaternion.identity);
         }
 
         if (spawnZone.transform.parent.gameObject.name == "SciFiSpawn")
         {
-            Instantiate(scifiEnemy, randomCoordinate, Quaternion.identity);
-
+            GameObject tmpObject = Instantiate(scifiEnemy, randomCoordinate, Quaternion.identity);
         }
         
         if (spawnZone.transform.parent.gameObject.name == "MedSpawn")
         {
-            Instantiate(medievalEnemy, randomCoordinate, Quaternion.identity);
-
+            GameObject tmpObject = Instantiate(medievalEnemy, randomCoordinate, Quaternion.identity);
         }
         
-        if (spawnZone.transform.parent.gameObject.name == "GraveyardSpawn")
+        if (spawnZone.transform.parent.gameObject.name == "GraveSpawn")
         {
-            Instantiate(graveyardEnemy, randomCoordinate, Quaternion.identity);
-
+            GameObject tmpObject = Instantiate(graveyardEnemy, randomCoordinate, Quaternion.identity);
         }
     }
 
@@ -88,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject desertSpawn = GameObject.Find("DesertSpawn");
         GameObject scifiSpawn = GameObject.Find("SciFiSpawn");
-        GameObject graveyardSpawn = GameObject.Find("GraveyardSpawn");
+        GameObject graveyardSpawn = GameObject.Find("GraveSpawn");
         GameObject medievalSpawn = GameObject.Find("MedSpawn");
 
         foreach (Transform child in desertSpawn.transform)
